@@ -18,3 +18,15 @@ Python Scrapy 爬虫实战
 (7)创建scrapy工程   scrapy startproject xxx
 
 (8)进入这个工程，然后创建scrapy模版   scrapy genspider jobbole bolog.jobbole.com
+
+【2017-11-20 笔记】
+xpath+css语句
+Request模块+urllilb的parse
+爬虫思路：1，解析页面 2，解析下一页url
+定义item，将数据定义解耦到items.py中 setting中的itemPipeLine打开，将item传入到pipeline中
+图片下载：(Pillow库安装)
+    ITEM_PIPELINE加入到pipeline中
+    scrapy.pipelines.images.ImagePipeline=1 数字越小越早进入到pipeline之中
+    IMAGES_URLS_FIELD=""
+    IMAGES_STORE=""
+
