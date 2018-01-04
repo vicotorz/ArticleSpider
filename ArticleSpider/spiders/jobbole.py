@@ -28,9 +28,9 @@ class JobboleSpider(scrapy.Spider):
             next_url = response.css(".next.page-numbers::attr(href)").extract_first("")
             if next_url:
                 yield Request(url=parse.urljoin(response.url, next_url), callback=self.parse)
+    pass
 
     def parse_detail(self, response):
-
         # #xpath 语法爬虫
         # #使用response
         # title = response.xpath('//div[@class="entry-header"]/h1/text()').extract_first("")
@@ -85,7 +85,7 @@ class JobboleSpider(scrapy.Spider):
             create_date = datetime.datetime.strptime(create_date, "%Y/%m/%d").date()
         except Exception as e:
             create_date = datetime.datetime.now().date()
-        article_item["create_date"] = create_date
+        article_item["created_date"] = create_date
         article_item["front_image_url"] = [front_image_url]
         article_item["praise_nums"] = praise_nums
         article_item["comment_nums"] = comment_nums
