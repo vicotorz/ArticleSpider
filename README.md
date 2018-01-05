@@ -32,6 +32,9 @@ Request模块+urllilb的parse
     
 【2018-1-4 笔记】
 增加保存json的pipeline，修复了部分笔误bug
-
+数据增加到mysql
+【2018-1-5 笔记】
+增加异步twisted插入到数据库
+item_loader
     
 
