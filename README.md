@@ -17,10 +17,12 @@ Python Scrapy 爬虫实战
 
 (7)创建scrapy工程   scrapy startproject xxx
 
-(8)进入这个工程，然后创建scrapy模版   scrapy genspider jobbole bolog.jobbole.com
+(8)进入这个工程，然后创建scrapy模版   【命令】scrapy genspider jobbole bolog.jobbole.com
 
 【2017-11-20 笔记】
 【xpath+css基础语法】
+
+建议打开虚拟环境，在命令窗口中，输入【命令】scrapy shell + (要爬取的网站)，然后进行xpath/css命令调试`
 
 xpath+css语句
 

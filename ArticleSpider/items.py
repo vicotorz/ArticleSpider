@@ -17,10 +17,10 @@ def add_jobbole(value):
 
 def date_convert(value):
     try:
-        create_date = datetime.datetime.strptime(value, "%Y/%m/%d").date()
+        create_date_temp = datetime.datetime.strptime(value, "%Y/%m/%d").date()
+        create_date=create_date_temp.strftime('%Y-%m-%d')
     except Exception as e:
-        create_date = datetime.datetime.now().date()
-
+        create_date = datetime.datetime.now().strftime('%Y-%m-%d')
     return create_date
 
 
@@ -42,6 +42,11 @@ def remove_comment_tags(value):
 
 def return_value(value):
     return value
+
+class ArticlespiderItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    pass
 
 class ArticleItemLoader(ItemLoader):
     #自定义itemloader

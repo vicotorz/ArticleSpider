@@ -64,14 +64,15 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'ArticleSpider.pipelines.ArticlespiderPipeline': 1,
-    #'scrapy.pipelines.images.ImagesPipeline': 1,
-    'ArticleSpider.pipelines.JsonWithEncodingPipeline': 2,
-    'ArticleSpider.pipelines.MysqlPipeline': 3,
+    'ArticleSpider.pipelines.ArticlespiderPipeline': 2,
+    'scrapy.pipelines.images.ImagesPipeline': 1,
+    'ArticleSpider.pipelines.JsonWithEncodingPipeline': 3,
+    'ArticleSpider.pipelines.MysqlPipeline': 4,
     #'ArticleSpider.pipelines.ArticleImagePipeline': 1,
-    'ArticleSpider.pipelines.MysqlTwistedPipline': 3
+    #'ArticleSpider.pipelines.MysqlTwistedPipline': 5
 }
 
+#配置image url字段
 IMAGES_URLS_FIELD = "front_image_url"
 project_dir=os.path.abspath(os.path.dirname(__file__))
 IMAGES_STORE = os.path.join(project_dir,'images')
