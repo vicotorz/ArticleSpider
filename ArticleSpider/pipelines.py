@@ -57,10 +57,12 @@ class JsonExporterPipeline(object):
 # 存储到数据库中函数
 class MysqlPipeline(object):
     def __init__(self):
+        print("开始存入数据库")
         self.conn = MySQLdb.connect(host="localhost", user="root", passwd="", db="scrapydb", charset="utf8")
         self.cursor = self.conn.cursor()
 
     def process_item(self, item, spider):
+        print("存入")
         insert_sql = """
             insert into articles(title,create_date,url,url_object_id,front_image_url,comment_nums,fav_nums,praise_nums,tags,content)
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
@@ -69,40 +71,46 @@ class MysqlPipeline(object):
             item["title"], item["create_date"], item["url"], item["url_object_id"], item["front_image_url"],
             item["comment_nums"], item["fav_nums"], item["praise_nums"], item["tags"],
             item["content"]))
+        print (dict(item))
         self.conn.commit()
 
 
 # mysql插入异步化
 class MysqlTwistedPipline(object):
+    print("异步存入")
     def __init__(self, dbpool):
         self.dbpool = dbpool
 
     @classmethod
-    def from_settings(cls, setting):
-        dbparms = dict(host=setting["MYSQL_HOST"],
-                       db=setting["MYSQL_DBNAME"],
-                       user=setting["MYSQL_USR"],
-                       passwd=setting["MYSQL_PASSWORD"],
-                       charset="utf-8",
-                       cursorclass=MySQLdb.cursors.DictCursor,
-                       use_unicode=True)
-
-        # 可变参数
+    def from_settings(cls, settings):
+        dbparms = dict(
+            host = settings["MYSQL_HOST"],
+            db = settings["MYSQL_DBNAME"],
+            user = settings["MYSQL_USER"],
+            passwd = settings["MYSQL_PASSWORD"],
+            charset='utf8',
+            cursorclass=MySQLdb.cursors.DictCursor,
+            use_unicode=True,
+        )
         dbpool = adbapi.ConnectionPool("MySQLdb", **dbparms)
+
         return cls(dbpool)
 
     def process_item(self, item, spider):
         # 使用twisted异步执行
         query = self.dbpool.runInteraction(self.do_insert, item)
-        query.addErrorback(self.handle_error, item, spider)
+        #query.addErrorback(self.handle_error, item, spider)
 
-    def handle_error(self, failure, item, spider):
-        print(failure)
+    #def handle_error(self, failure, item, spider):
+        #print(failure)
 
     def do_insert(self, cursor, item):
         # 执行具体的插入
         insert_sql = """
-                   insert into articles(title,url,create_date,fav_nums)
-                   VALUES (%s,%s,%s,%s)
-               """
-        cursor.execute(insert_sql, (item["title"], item["url"], item["create_date"], item["fav_nums"]))
+                    insert into articles(title,create_date,url,url_object_id,front_image_url,comment_nums,fav_nums,praise_nums,tags,content)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                """
+        cursor.execute(insert_sql, (
+            item["title"], item["create_date"], item["url"], item["url_object_id"], item["front_image_url"],
+            item["comment_nums"], item["fav_nums"], item["praise_nums"], item["tags"],
+            item["content"]))

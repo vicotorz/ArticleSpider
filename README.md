@@ -38,12 +38,18 @@ Request模块+urllilb的parse
 
 图片下载：(Pillow库安装)
     ITEM_PIPELINE加入到pipeline中
-    scrapy.pipelines.images.ImagePipeline=1 数字越小越早进入到pipeline之中
+    scrapy.pipelines.images.ImagePipeline=1 (数字越小越早进入到pipeline之中)
     IMAGES_URLS_FIELD=""
-    IMAGES_STORE=""
+    IMAGES_STORE="
+
+#图片保存到本地
+#配置image url字段
+IMAGES_URLS_FIELD = "front_image_url"
+project_dir=os.path.abspath(os.path.dirname(__file__))
+IMAGES_STORE = os.path.join(project_dir,'images')"
     
 【2018-1-4 笔记】
-【json--pipeline，mysql--pipeline】
+【json--pipeline（自定义/scrapy自带），mysql--pipeline（mysql同步/mysql+twisted 异步）】
 
 增加保存json的pipeline，修复了部分笔误bug
 
@@ -54,7 +60,7 @@ Request模块+urllilb的parse
 
 增加异步twisted插入到数据库
 
-【自定义itemloader】
+【自定义itemloader】（不太好用）
 
 自定义itemloader
 
@@ -71,5 +77,10 @@ from scrapy.loader.processors import MapCompose,TakeFirst,Join
 （2）item_loader.add_css
 
 创建itemloader，load各个字段
+
+【2018-1-7 笔记】
+弃用了itemloader
+
+修复异步mysql问题（setttings 写成 setting）
     
 

@@ -17,7 +17,7 @@ class JobboleSpider(scrapy.Spider):
     name = "jobbole"
     allowed_domains = ["blog.jobbole.com"]
     start_urls = ['http://blog.jobbole.com/all-posts/']
-
+    count=0;
 
     # def __init__(self):
     #     self.browser = webdriver.Chrome(executable_path="D:/Temp/chromedriver.exe")
@@ -41,6 +41,7 @@ class JobboleSpider(scrapy.Spider):
 
     #总体逻辑
     def parse(self, response):
+        self.count=self.count+1
         """
         1. 获取文章列表页中的文章url并交给scrapy下载后并进行解析
         2. 获取下一页的url并交给scrapy进行下载， 下载完成后交给parse
@@ -65,7 +66,7 @@ class JobboleSpider(scrapy.Spider):
         #提取下一页并交给scrapy进行下载
         next_url = response.css(".next.page-numbers::attr(href)").extract_first("")
         print ("解析下一页")
-        if next_url:
+        if next_url and self.count<4:
             yield Request(next_url, callback=self.parse)
 
     #3解析具体一个单页
@@ -125,7 +126,7 @@ class JobboleSpider(scrapy.Spider):
         #     create_date = datetime.datetime.strptime(create_date, "%Y/%m/%d").date()
         # except Exception as e:
         #     create_date = datetime.datetime.now().date()
-        article_item["created_date"] = create_date
+        article_item["create_date"] = create_date
         article_item["front_image_url"] = [front_image_url]
         article_item["praise_nums"] = praise_nums
         article_item["comment_nums"] = comment_nums

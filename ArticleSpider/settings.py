@@ -67,9 +67,9 @@ ITEM_PIPELINES = {
     'ArticleSpider.pipelines.ArticlespiderPipeline': 2,
     'scrapy.pipelines.images.ImagesPipeline': 1,
     'ArticleSpider.pipelines.JsonWithEncodingPipeline': 3,
-    'ArticleSpider.pipelines.MysqlPipeline': 4,
+    #'ArticleSpider.pipelines.MysqlPipeline': 4,
     #'ArticleSpider.pipelines.ArticleImagePipeline': 1,
-    #'ArticleSpider.pipelines.MysqlTwistedPipline': 5
+    'ArticleSpider.pipelines.MysqlTwistedPipline': 5
 }
 
 #配置image url字段
