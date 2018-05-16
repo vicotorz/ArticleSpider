@@ -9,7 +9,7 @@ Python Scrapy 爬虫实战
 
 (3)pip install virtualenvwrapper-win
 
-(4)在本机设置WORKON_HOME路径，并将创建的环境放进新的Envs目录中
+(4)在本机设置WORKON_HOME路径(D:\Envs)，并将创建的环境放进新的Envs目录中
 
 (5)workon aaa
 
