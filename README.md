@@ -1,7 +1,7 @@
 # ArticleSpider
 Python Scrapy 爬虫实战
 
-【Python虚拟环境使用总结】
+【Python虚拟环境使用总结】（未完成，待继续）
 【虚拟环境】
 (1)pip install virtualenv
 
